@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- <input type="text" name="" id="s">
+    <button class="btn">click me</button> -->
+
+
+
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="s" placeholder="Search Shayari...">
+            <button id="btn">Search</button>
+           
+        </div>
+
+        <div>
+            <br><br>
+            <b class="ptag"></b>
+            <br><br>
+        </div>
+    </div>
+
+    <!-- <p class="ptag"></p> -->
+</body>
+</html>
+<script>
+    
+    let s = document.querySelector("#s")
+    // ptag.innerHTML = "tarun"
+    let ptag = document.querySelector(".ptag")
+
+    let btn = document.querySelector("#btn")
+
+    btn.addEventListener("click" , ()=>{
+
+    
+
+    let obj = {"text" : s.value}
+
+
+    async function append(){
+        let res = await fetch("http://localhost:3000/chat",{
+            method : "POST",
+            headers : {"Content-Type" : "application/json"},
+            body : JSON.stringify(obj)
+        
+
+        })
+
+        // console.log(res)
+        if(res.ok){
+            let data = await res.json()
+            let x = data.msg.split("\n").join(" ")
+
+            ptag.innerHTML = JSON.stringify(x)
+        
+        }
+    }
+
+    append()
+})
+</script>
